@@ -9,6 +9,9 @@ const Home = () => {
   const [salt, setSalt] = useState('');
   const [inputPassword, setInputPassword] = useState('');
   const [isMatch, setIsMatch] = useState<boolean | null>(null);
+  const [verifyHashedPassword, setVerifyHashedPassword] = useState('');
+  const [verifyPasswordInput, setVerifyPasswordInput] = useState('');
+  const [isDecryptedMatch, setIsDecryptedMatch] = useState<boolean | null>(null);
 
   const handleHashPassword = () => {
     const { salt, hash } = hashPassword(password);
@@ -19,6 +22,11 @@ const Home = () => {
   const handleVerifyPassword = () => {
     const match = verifyPassword(inputPassword, hashedPassword, salt);
     setIsMatch(match);
+  };
+
+  const handleDecryptPassword = () => {
+    const match = verifyPassword(verifyPasswordInput, verifyHashedPassword, salt);
+    setIsDecryptedMatch(match);
   };
 
   return (
@@ -45,7 +53,7 @@ const Home = () => {
         )}
       </div>
 
-      <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
+      <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md dark:bg-gray-800 mb-6">
         <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">Verify a Password</h2>
         <input
           type="text"
@@ -64,9 +72,37 @@ const Home = () => {
           </div>
         )}
       </div>
+
+      <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
+        <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">Decrypt and Verify a Hashed Password</h2>
+        <input
+          type="text"
+          placeholder="Enter hashed password"
+          value={verifyHashedPassword}
+          onChange={(e) => setVerifyHashedPassword(e.target.value)}
+          className="border p-2 w-full mb-4 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white"
+        />
+        <input
+          type="text"
+          placeholder="Enter password to verify"
+          value={verifyPasswordInput}
+          onChange={(e) => setVerifyPasswordInput(e.target.value)}
+          className="border p-2 w-full mb-4 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white"
+        />
+        <button onClick={handleDecryptPassword} className="bg-blue-500 text-white p-2 w-full">Decrypt and Verify</button>
+        {isDecryptedMatch !== null && (
+          <div className="mt-4">
+            <h3 className="font-semibold text-gray-900 dark:text-white">Password Match:</h3>
+            <p className={`text-lg ${isDecryptedMatch ? 'text-green-500' : 'text-red-500'}`}>
+              {isDecryptedMatch ? '✅ Passwords match!' : '❌ Passwords do not match!'}
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
 
 export default Home;
+
 
