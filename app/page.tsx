@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { hashPassword, verifyPassword } from './utils/hash';
 
@@ -24,39 +26,41 @@ const Home = () => {
       <h1 className="text-4xl font-bold mb-8 text-balance">Basic Hashing Utility</h1>
 
       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md dark:bg-gray-800 mb-6">
-        <h2 className="text-2xl font-semibold mb-4">Hash a Password</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">Hash a Password</h2>
         <input
-          type="password"
+          type="text"
           placeholder="Enter password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="border p-2 w-full mb-4"
+          className="border p-2 w-full mb-4 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white"
         />
         <button onClick={handleHashPassword} className="bg-blue-500 text-white p-2 w-full">Hash Password</button>
         {hashedPassword && (
           <div className="mt-4">
-            <h3 className="font-semibold">Salt:</h3>
-            <p>{salt}</p>
-            <h3 className="font-semibold">Hashed Password:</h3>
-            <p>{hashedPassword}</p>
+            <h3 className="font-semibold text-gray-900 dark:text-white">Salt:</h3>
+            <p className="text-gray-900 dark:text-gray-300 break-all">{salt}</p>
+            <h3 className="font-semibold text-gray-900 dark:text-white">Hashed Password:</h3>
+            <p className="text-gray-900 dark:text-gray-300 break-all">{hashedPassword}</p>
           </div>
         )}
       </div>
 
       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
-        <h2 className="text-2xl font-semibold mb-4">Verify a Password</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">Verify a Password</h2>
         <input
-          type="password"
+          type="text"
           placeholder="Enter password to verify"
           value={inputPassword}
           onChange={(e) => setInputPassword(e.target.value)}
-          className="border p-2 w-full mb-4"
+          className="border p-2 w-full mb-4 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white"
         />
         <button onClick={handleVerifyPassword} className="bg-blue-500 text-white p-2 w-full">Verify Password</button>
         {isMatch !== null && (
           <div className="mt-4">
-            <h3 className="font-semibold">Password Match:</h3>
-            <p>{isMatch ? '✅ Passwords match!' : '❌ Passwords do not match!'}</p>
+            <h3 className="font-semibold text-gray-900 dark:text-white">Password Match:</h3>
+            <p className={`text-lg ${isMatch ? 'text-green-500' : 'text-red-500'}`}>
+              {isMatch ? '✅ Passwords match!' : '❌ Passwords do not match!'}
+            </p>
           </div>
         )}
       </div>
@@ -65,3 +69,4 @@ const Home = () => {
 };
 
 export default Home;
+
