@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { hashPassword, verifyPassword } from '../utils/hash';
+import { hashPassword, verifyPassword } from './utils/hash';
 
 const Home = () => {
   const [password, setPassword] = useState('');
